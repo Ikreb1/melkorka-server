@@ -6,11 +6,13 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 import base64
 import ssl
+from dotenv import load_dotenv
+import os
 
-def getPassword():
-    pass
-app_password = getPassword()
-sender_email = "jonniketo@gmail.com"
+load_dotenv()
+
+sender_email = os.environ.get("EMAIL_USER")
+app_password = os.environ.get("GMAIL_APP_PASSWORD")
 
 app = Flask(__name__)
 CORS(app)
@@ -43,4 +45,4 @@ def sendEmail():
         return jsonify({'error': str(e)}), 500
         
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=False, port=5000)
